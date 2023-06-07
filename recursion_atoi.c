@@ -24,58 +24,35 @@ int main(int argc, string argv[])
 
 int atoi(string number_text)
 {
-    int length = strlen(number_text);
+    int sign = 1;
 
-    bool isNegative = false;
+    int i = 0;
 
-    if (number_text[0] == '-')
+    while(  number_text[i] == ' ' || 
+            number_text[i] == '\n' || 
+            number_text[i] == '\t')
     {
-        isNegative = true;
-
-        for (int i = 0; i < length - 1; i++)
-        {
-            number_text[i] = number_text[i + 1];
-        }
-
-        length -= 1;
-
-        number_text[length] = '\0';
+        i++;
     }
 
-    for (int i = 0; i < length; i++) 
+    if (number_text[i] == '-' || number_text[i] == '+')
     {
-        if (!isdigit(number_text[i]))
+        if (number_text[i] == '-')
         {
-            number_text[i] = '\0';
-
-            length = i;
-            break;        
+            sign = -1;
         }
+
+        i++;
     }
 
     int sum = 0;
 
-    int exponent = length - 1;
-
-    for (int i = 0; i < length; i++) 
+    while (number_text[i] != '\0' && (number_text[i] >= '0' && number_text[i] <= '9')) 
     {
-        sum += (number_text[i] - 48) * power_of_ten(exponent--);   
+        sum = (sum * 10) + (number_text[i] - '0');
+        
+        i++;
     }
 
-    if (isNegative)
-    {
-        sum *= -1;
-    }
-
-    return sum;
-}
-
-int power_of_ten(int exponent)
-{
-    if (exponent <= 0)
-    {
-        return 1;
-    }
-
-    return 10 * power_of_ten(exponent - 1); 
+    return sum * sign;
 }
