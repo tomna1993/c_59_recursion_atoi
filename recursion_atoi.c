@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 int atoi(string number_text);
+int power_of_ten(int exponent);
 
 int main(int argc, string argv[])
 {
@@ -19,5 +20,16 @@ int main(int argc, string argv[])
 
 int atoi(string number_text)
 {
+    
     return 0;
+}
+
+int power_of_ten(int exponent)
+{
+    if (exponent <= 0)
+    {
+        return 1;
+    }
+
+    return 10 * power_of_ten(exponent - 1); 
 }
