@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int atoi(string number_text);
-int power_of_ten(int exponent);
+int atoi_iterative(string number_text);
 
 int main(int argc, string argv[])
 {
@@ -17,12 +16,12 @@ int main(int argc, string argv[])
 
     string number_text = argv[1];
 
-    int number = atoi(number_text);
+    int number = atoi_iterative(number_text);
 
     printf ("%i\n", number);
 }
 
-int atoi(string number_text)
+int atoi_iterative(string number_text)
 {
     int sign = 1;
 
