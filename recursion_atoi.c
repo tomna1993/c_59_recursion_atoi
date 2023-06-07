@@ -1,4 +1,5 @@
 #include <cs50.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -23,18 +24,14 @@ int main(int argc, string argv[])
 
 int atoi(string number_text)
 {
-    int sum;
-    int exponent = 0;
+    int sum = 0;
 
     int length = strlen(number_text);
+    int exponent = length - 1;
 
-    while (length > 0) 
+    for (int i = 0; i < length; i++) 
     {
-        length--;
-
-        sum += (number_text[length] - 48) * power_of_ten(exponent);
-
-        exponent++;    
+        sum += (number_text[i] - 48) * power_of_ten(exponent--);   
     }
 
     return sum;
