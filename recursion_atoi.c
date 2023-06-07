@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int atoi_iterative(string number_text);
+long atoi_iterative(string number_text);
 
 int main(int argc, string argv[])
 {
@@ -21,11 +21,11 @@ int main(int argc, string argv[])
     printf ("%i\n", number);
 }
 
-int atoi_iterative(string number_text)
+long atoi_iterative(string number_text)
 {
-    int sign = 1;
+    int sign = 1, i = 0;
 
-    int i = 0;
+    long num = 0;
 
     while(  number_text[i] == ' ' || 
             number_text[i] == '\n' || 
@@ -44,14 +44,12 @@ int atoi_iterative(string number_text)
         i++;
     }
 
-    int sum = 0;
-
     while (number_text[i] != '\0' && (number_text[i] >= '0' && number_text[i] <= '9')) 
     {
-        sum = (sum * 10) + (number_text[i] - '0');
+        num = (num * 10) + (number_text[i] - '0');
         
         i++;
     }
 
-    return sum * sign;
+    return num * sign;
 }
