@@ -1,5 +1,6 @@
 #include <cs50.h>
 #include <stdio.h>
+#include <string.h>
 
 int atoi(string number_text);
 int power_of_ten(int exponent);
@@ -16,12 +17,27 @@ int main(int argc, string argv[])
     string number_text = argv[1];
 
     int number = atoi(number_text);
+
+    printf ("%i\n", number);
 }
 
 int atoi(string number_text)
 {
-    
-    return 0;
+    int sum;
+    int exponent = 0;
+
+    int length = strlen(number_text);
+
+    while (length > 0) 
+    {
+        length--;
+
+        sum += (number_text[length] - 48) * power_of_ten(exponent);
+
+        exponent++;    
+    }
+
+    return sum;
 }
 
 int power_of_ten(int exponent)
