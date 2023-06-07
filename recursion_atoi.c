@@ -10,5 +10,5 @@ int main(int argc, string argv[])
         return 1;
     }
 
-    
+    string number_text = argv[1];
 }
