@@ -24,14 +24,29 @@ int main(int argc, string argv[])
 
 int atoi(string number_text)
 {
+    int length = strlen(number_text);
+
+    char number[20];
+
+    for (int i = 0; i < length; i++) 
+    {
+        if (!isdigit(number_text[i]))
+        {
+            break;        
+        }
+
+        number[i] = number_text[i];
+        number[i + 1] = '\0';
+    }
+
     int sum = 0;
 
-    int length = strlen(number_text);
+    length = strlen(number);
     int exponent = length - 1;
 
     for (int i = 0; i < length; i++) 
     {
-        sum += (number_text[i] - 48) * power_of_ten(exponent--);   
+        sum += (number[i] - 48) * power_of_ten(exponent--);   
     }
 
     return sum;
