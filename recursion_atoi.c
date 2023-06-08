@@ -1,6 +1,8 @@
 #include <cs50.h>
 #include <stdio.h>
 
+#define null '\0'
+
 long atoi_iterative(string number_text);
 long atoi_recursive(string number_text);
 long atoi_recursive_call(string number_text, long number);
@@ -17,9 +19,9 @@ int main(int argc, string argv[])
 
     string number_text = argv[1];
 
-    printf ("Iterative atoi: %i\n", atoi_iterative(number_text));
-
     printf ("Recursive atoi: %i\n", atoi_recursive(number_text));
+
+    printf ("Iterative atoi: %i\n", atoi_iterative(number_text));
 }
 
 long atoi_iterative(string number_text)
@@ -50,7 +52,7 @@ long atoi_iterative(string number_text)
 
     // Iterate through the string array until end of array (NULL = '\0') or
     // any non digit character 
-    while (number_text[i] != '\0' && (number_text[i] >= '0' && number_text[i] <= '9')) 
+    while (number_text[i] != null && (number_text[i] >= '0' && number_text[i] <= '9')) 
     {
         num = (num * 10) + (number_text[i] - '0');
         
@@ -62,36 +64,50 @@ long atoi_iterative(string number_text)
 
 long atoi_recursive(string number_text)
 {
-    int sign = 1, i = 0, j;
+    // Arrays are passed by reference, so it is important to
+    // move the original string array's content to a locally used buffer
+    char buffer[30];
+
+    int sign = 1, i = 0;
+
+    // Copy the original array to buffer
+    while (number_text[i] != null) 
+    {
+        buffer[i] = number_text[i];
+        i++;
+    }
+    buffer[i] = null;
+
+    i = 0;
 
     // Check any whitespace character, shift array left by one index if found 
-    while ( number_text[0] == ' ' || 
-            number_text[0] == '\n' || 
-            number_text[0] == '\t')
+    while ( buffer[0] == ' ' || 
+            buffer[0] == '\n' || 
+            buffer[0] == '\t')
     {
-        shift_array_left(number_text);
+        shift_array_left(buffer);
     }
 
     // Check for sign before number
-    if (number_text[0] == '-' || number_text[0] == '+')
+    if (buffer[0] == '-' || buffer[0] == '+')
     {
-        if (number_text[0] == '-')
+        if (buffer[0] == '-')
         {
             sign = -1;
         }
 
-        shift_array_left(number_text);
+        shift_array_left(buffer);
     }
 
     // Convert text to number
-    return atoi_recursive_call(number_text, 0) * sign;
+    return atoi_recursive_call(buffer, 0) * sign;
 }
 
 // Recursive solution to convert text to number
 long atoi_recursive_call(string number_text, long number)
 {
     // Base-case, exit condition from recursion
-    if (number_text[0] == '\0' || number_text[0] < '0' || number_text[0] > '9')
+    if (number_text[0] == null || number_text[0] < '0' || number_text[0] > '9')
     {
         return number;
     }
@@ -108,7 +124,7 @@ long atoi_recursive_call(string number_text, long number)
 void shift_array_left(string text)
 {
     int j = 0;
-    while (text[j] != '\0') 
+    while (text[j] != null) 
     {
         text[j] = text[j + 1];
         j++;
