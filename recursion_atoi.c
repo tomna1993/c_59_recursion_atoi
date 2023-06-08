@@ -1,7 +1,5 @@
 #include <cs50.h>
-#include <ctype.h>
 #include <stdio.h>
-#include <string.h>
 
 long atoi_iterative(string number_text);
 long atoi_recursive(string number_text);
