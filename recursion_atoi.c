@@ -56,7 +56,7 @@ long atoi_iterative(string number_text)
         
         i++;
     }
-    
+
     return num * sign;
 }
 
@@ -64,6 +64,7 @@ long atoi_recursive(string number_text)
 {
     int sign = 1, i = 0, j;
 
+    // Check any whitespace character, shift array left by one index if found 
     while ( number_text[0] == ' ' || 
             number_text[0] == '\n' || 
             number_text[0] == '\t')
@@ -71,6 +72,7 @@ long atoi_recursive(string number_text)
         shift_array_left(number_text);
     }
 
+    // Check for sign before number
     if (number_text[0] == '-' || number_text[0] == '+')
     {
         if (number_text[0] == '-')
@@ -81,23 +83,28 @@ long atoi_recursive(string number_text)
         shift_array_left(number_text);
     }
 
+    // Convert text to number
     return atoi_recursive_call(number_text, 0) * sign;
 }
 
+// Recursive solution to convert text to number
 long atoi_recursive_call(string number_text, long number)
 {
-     if (number_text[0] == '\0' || number_text[0] < '0' || number_text[0] > '9')
+    // Base-case, exit condition from recursion
+    if (number_text[0] == '\0' || number_text[0] < '0' || number_text[0] > '9')
     {
         return number;
     }
 
     number = (number * 10) + (number_text[0] - '0');
 
+    // Exclude the already converted digit from the string array
     shift_array_left(number_text);
 
     return atoi_recursive_call(number_text, number);
 }
 
+// Shift array to left by one index
 void shift_array_left(string text)
 {
     int j = 0;
