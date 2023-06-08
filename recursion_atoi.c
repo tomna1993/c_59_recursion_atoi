@@ -4,6 +4,9 @@
 #include <string.h>
 
 long atoi_iterative(string number_text);
+long atoi_recursive(string number_text);
+long atoi_recursive_call(string number_text, long number);
+void shift_array_left(string text);
 
 int main(int argc, string argv[])
 {
@@ -16,9 +19,9 @@ int main(int argc, string argv[])
 
     string number_text = argv[1];
 
-    int number = atoi_iterative(number_text);
+    printf ("Iterative atoi: %i\n", atoi_iterative(number_text));
 
-    printf ("%i\n", number);
+    printf ("Recursive atoi: %i\n", atoi_recursive(number_text));
 }
 
 long atoi_iterative(string number_text)
@@ -52,4 +55,52 @@ long atoi_iterative(string number_text)
     }
 
     return num * sign;
+}
+
+long atoi_recursive(string number_text)
+{
+    int sign = 1, i = 0, j;
+
+    while ( number_text[0] == ' ' || 
+            number_text[0] == '\n' || 
+            number_text[0] == '\t')
+    {
+        shift_array_left(number_text);
+    }
+
+    if (number_text[0] == '-' || number_text[0] == '+')
+    {
+        if (number_text[0] == '-')
+        {
+            sign = -1;
+        }
+
+        shift_array_left(number_text);
+    }
+
+    return atoi_recursive_call(number_text, 0) * sign;
+}
+
+long atoi_recursive_call(string number_text, long number)
+{
+     if (number_text[0] == '\0' || number_text[0] < '0' || number_text[0] > '9')
+    {
+        return number;
+    }
+
+    number = (number * 10) + (number_text[0] - '0');
+
+    shift_array_left(number_text);
+
+    return atoi_recursive_call(number_text, number);
+}
+
+void shift_array_left(string text)
+{
+    int j = 0;
+    while (text[j] != '\0') 
+    {
+        text[j] = text[j + 1];
+        j++;
+    }
 }
