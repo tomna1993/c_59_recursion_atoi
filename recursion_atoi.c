@@ -28,6 +28,7 @@ long atoi_iterative(string number_text)
 
     long num = 0;
 
+    // Check any whitespace character and increment the index (i)
     while(  number_text[i] == ' ' || 
             number_text[i] == '\n' || 
             number_text[i] == '\t')
@@ -35,6 +36,7 @@ long atoi_iterative(string number_text)
         i++;
     }
 
+    // Check for sign before number
     if (number_text[i] == '-' || number_text[i] == '+')
     {
         if (number_text[i] == '-')
@@ -42,16 +44,19 @@ long atoi_iterative(string number_text)
             sign = -1;
         }
 
+        // Increment index - on this index a number should start
         i++;
     }
 
+    // Iterate through the string array until end of array (NULL = '\0') or
+    // any non digit character 
     while (number_text[i] != '\0' && (number_text[i] >= '0' && number_text[i] <= '9')) 
     {
         num = (num * 10) + (number_text[i] - '0');
         
         i++;
     }
-
+    
     return num * sign;
 }
 
